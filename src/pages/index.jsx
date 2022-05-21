@@ -10,7 +10,7 @@ import TopSellerArea from "@containers/top-seller/layout-01";
 import ExploreProductArea from "@containers/explore-product/layout-01";
 import CollectionArea from "@containers/collection/layout-01";
 import { normalizedData } from "@utils/methods";
-
+import Metamask_provider from "../web3/Metamask_provider";
 // Demo Data
 import homepageData from "../data/homepages/home-01.json";
 import productData from "../data/products.json";
@@ -36,45 +36,16 @@ const Home = () => {
         .slice(0, 5);
 
     return (
-        <Wrapper>
-            <SEO pageTitle="Home Default" />
-            <Header />
-            <main id="main-content">
-                <HeroArea data={content["hero-section"]} />
-                <LiveExploreArea
-                    data={{
-                        ...content["live-explore-section"],
-                        products: liveAuctionData,
-                    }}
-                />
-                <ServiceArea data={content["service-section"]} />
-                <NewestItmesArea
-                    data={{
-                        ...content["newest-section"],
-                        products: newestData,
-                    }}
-                />
-                <TopSellerArea
-                    data={{
-                        ...content["top-sller-section"],
-                        sellers: sellerData,
-                    }}
-                />
-                <ExploreProductArea
-                    data={{
-                        ...content["explore-product-section"],
-                        products: productData,
-                    }}
-                />
-                <CollectionArea
-                    data={{
-                        ...content["collection-section"],
-                        collections: collectionsData.slice(0, 4),
-                    }}
-                />
-            </main>
-            <Footer />
-        </Wrapper>
+        <Metamask_provider>
+            <Wrapper>
+                
+                <SEO pageTitle="Home Default" />
+                <Header />
+                <main id="main-content">
+                    <HeroArea data={content["hero-section"]} />
+                </main>
+            </Wrapper>
+        </Metamask_provider>
     );
 };
 

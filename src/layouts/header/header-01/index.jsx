@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { useMoralis } from "react-moralis";
 import Logo from "@components/logo";
 import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
@@ -15,11 +14,28 @@ import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import headerData from "../../../data/general/header-01.json";
 import menuData from "../../../data/general/menu-01.json";
 
+import Web3 from 'web3';
+import Metamask_context from "src/web3/Metamask_context";
+import { useContext } from "react";
+
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    const { authenticate, isAuthenticated } = useMoralis();
+    const metamask =useContext(Metamask_context);
+    console.log(metamask);
+    const connect_meta =async() =>{
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' }); 
+            const web3=window.ethereum ? new Web3(window.ethereum): null;
+            await metamask.loadAccount(web3);
+            await metamask.loadNetworkId(web3); 
+        }catch(error) {
+            console.error(error);
+        }
+        
+
+    };
 
     return (
         <>
@@ -59,21 +75,22 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div>
-                            {!isAuthenticated && (
+
+                            {!metamask.connect && (
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
                                         <Button
                                             color="primary-alta"
                                             className="connectBtn"
                                             size="small"
-                                            onClick={() => authenticate()}
+                                            onClick={() => connect_meta()}
                                         >
                                             Wallet connect
                                         </Button>
                                     </div>
                                 </div>
                             )}
-                            {isAuthenticated && (
+                            {metamask.connect && (
                                 <div className="setting-option rn-icon-list user-account">
                                     <UserDropdown />
                                 </div>
