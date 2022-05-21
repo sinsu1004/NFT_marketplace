@@ -1,6 +1,12 @@
 const path = require("path");
 
 module.exports = {
+    
+    images:{
+        loader:'akamai',
+        path:'/',
+
+    },
     reactStrictMode: true,
     sassOptions: {
         includePaths: [path.join(__dirname, "./src/assets/scss")],
