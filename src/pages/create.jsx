@@ -17,7 +17,7 @@ const Home = () => (
             <Breadcrumb pageTitle="Create New File" />
             <CreateNewArea />
         </main>
-        <Footer />
+        
     </Wrapper>
 );
 

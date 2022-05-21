@@ -49,36 +49,20 @@ const Product = ({
                             />
                         </Anchor>
                     )}
-                    {auction_date && <CountdownTimer date={auction_date} />}
+                    {/* {auction_date && <CountdownTimer date={auction_date} />} */}
                     {placeBid && (
                         <Button onClick={handleBidModal} size="small">
                             Place Bid
-                        </Button>
+                        </Button>   
                     )}
                 </div>
                 <div className="product-share-wrapper">
-                    <div className="profile-share">
-                        {authors?.map((client) => (
-                            <ClientAvatar
-                                key={client.name}
-                                slug={client.slug}
-                                name={client.name}
-                                image={client.image}
-                            />
-                        ))}
-                        <Anchor
-                            className="more-author-text"
-                            path={`/product/${slug}`}
-                        >
-                            {bitCount}+ Place Bit.
-                        </Anchor>
-                    </div>
-                    {!disableShareDropdown && <ShareDropdown />}
+                   
                 </div>
                 <Anchor path={`/product/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                <span className="latest-bid">Highest bid {latestBid}</span>
+                {/* <span className="latest-bid">Highest bid {latestBid}</span> */}
                 <ProductBid price={price} likeCount={likeCount} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal} />

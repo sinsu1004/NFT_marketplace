@@ -24,7 +24,7 @@ const Home02 = () => (
                 }}
             />
         </main>
-        <Footer />
+    
     </Wrapper>
 );
 

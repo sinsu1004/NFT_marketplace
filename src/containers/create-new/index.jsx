@@ -214,7 +214,7 @@ const CreateNewArea = ({ className, space }) => {
                                             </div>
                                         </div>
 
-                                        <div className="col-md-4">
+                                        {/* <div className="col-md-4">
                                             <div className="input-box pb--20">
                                                 <label
                                                     htmlFor="Size"
@@ -236,9 +236,9 @@ const CreateNewArea = ({ className, space }) => {
                                                     </ErrorText>
                                                 )}
                                             </div>
-                                        </div>
+                                        </div> */}
 
-                                        <div className="col-md-4">
+                                        {/* <div className="col-md-4">
                                             <div className="input-box pb--20">
                                                 <label
                                                     htmlFor="Propertie"
@@ -263,10 +263,10 @@ const CreateNewArea = ({ className, space }) => {
                                                     </ErrorText>
                                                 )}
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="col-md-12">
-                                            <div className="input-box pb--20">
+                                            {/* <div className="input-box pb--20">
                                                 <label
                                                     htmlFor="Royality"
                                                     className="form-label"
@@ -289,10 +289,10 @@ const CreateNewArea = ({ className, space }) => {
                                                         }
                                                     </ErrorText>
                                                 )}
-                                            </div>
+                                            </div> */}
                                         </div>
 
-                                        <div className="col-md-4 col-sm-4">
+                                        {/* <div className="col-md-4 col-sm-4">
                                             <div className="input-box pb--20 rn-check-box">
                                                 <input
                                                     className="rn-check-box-input"
@@ -338,7 +338,7 @@ const CreateNewArea = ({ className, space }) => {
                                                     Unlock Purchased
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="col-md-12 col-xl-4">
                                             <div className="input-box">
