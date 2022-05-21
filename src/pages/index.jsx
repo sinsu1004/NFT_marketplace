@@ -36,7 +36,7 @@ const Home = () => {
         .slice(0, 5);
 
     return (
-        <Metamask_provider>
+        
             <Wrapper>
                 
                 <SEO pageTitle="Home Default" />
@@ -45,7 +45,7 @@ const Home = () => {
                     <HeroArea data={content["hero-section"]} />
                 </main>
             </Wrapper>
-        </Metamask_provider>
+        
     );
 };
 

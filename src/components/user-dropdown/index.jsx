@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { useMoralis } from "react-moralis";
-
+import Metamask_context from "src/web3/Metamask_context";
+import React, { useContext, useEffect } from 'react';
 
 const UserDropdown = () => {
     const { logout } = useMoralis();
+    const metamask =useContext(Metamask_context);
+    console.log(metamask.account);
     return (
         <div className="icon-box">
             <Anchor path="/author">
@@ -19,7 +22,7 @@ const UserDropdown = () => {
             <div className="rn-dropdown">
                 <div className="rn-inner-top">
                     <h4 className="title">
-                        <Anchor path="/product">Christopher William</Anchor>
+                        {metamask.account}님 환영합니다.
                     </h4>
                     <span>
                         <Anchor path="/product">Set Display Name</Anchor>

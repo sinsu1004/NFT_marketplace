@@ -9,6 +9,8 @@ import "../assets/css/feather.css";
 import "../assets/scss/style.scss";
 import "react-toastify/dist/ReactToastify.css";
 
+import Metamask_provider from "src/web3/Metamask_provider";
+
 const moralisAppId = "Zgi9h3xvYrvXHJZmYjgzbfxlTPnDq6H3RytmW0qt";
 const moralisServerURL = "https://mrnuat16od8z.usemoralis.com:2053/server";
 
@@ -25,11 +27,13 @@ const MyApp = ({ Component, pageProps }) => {
         document.body.className = `${pageProps.className}`;
     });
     return (
-        <MoralisProvider appId={moralisAppId} serverUrl={moralisServerURL}>
-            <ThemeProvider defaultTheme="dark">
-                <Component {...pageProps} />
-            </ThemeProvider>
-        </MoralisProvider>
+        <Metamask_provider>
+            <MoralisProvider appId={moralisAppId} serverUrl={moralisServerURL}>
+                <ThemeProvider defaultTheme="dark">
+                    <Component {...pageProps} />
+                </ThemeProvider>
+            </MoralisProvider>
+        </Metamask_provider>
     );
 };
 
