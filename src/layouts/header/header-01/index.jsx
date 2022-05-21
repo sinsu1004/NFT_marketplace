@@ -19,11 +19,12 @@ import Metamask_context from "src/web3/Metamask_context";
 import { useContext } from "react";
 
 const Header = ({ className }) => {
+    console.log('들어옴');
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
     const metamask =useContext(Metamask_context);
-    console.log(metamask);
+    
     const connect_meta =async() =>{
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' }); 
@@ -36,6 +37,7 @@ const Header = ({ className }) => {
         
 
     };
+    console.log(metamask.account);
 
     return (
         <>
