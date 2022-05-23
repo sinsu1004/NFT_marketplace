@@ -17,7 +17,6 @@ const Home = () => (
         <main id="main-content">
             <ActivityArea data={{ activities: activityData }} />
         </main>
-        <Footer />
     </Wrapper>
 );
 

@@ -54,50 +54,7 @@ const AuthorIntroArea = ({ className, space, data }) => {
 
                                     <div className="rn-author-info-content">
                                         <h4 className="title">{data.name}</h4>
-                                        <a
-                                            href="https://twitter.com"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="social-follw"
-                                        >
-                                            <i className="feather-twitter" />
-                                            <span className="user-name">
-                                                {data.twitter}
-                                            </span>
-                                        </a>
-                                        <div className="follow-area">
-                                            <div className="follow followers">
-                                                <span>
-                                                    {data.followers}{" "}
-                                                    <a
-                                                        href="https://twitter.com"
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="color-body"
-                                                    >
-                                                        followers
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div className="follow following">
-                                                <span>
-                                                    {data.following}{" "}
-                                                    <a
-                                                        href="https://twitter.com"
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="color-body"
-                                                    >
-                                                        following
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        </div>
                                         <div className="author-button-area">
-                                            <span className="btn at-follw follow-button">
-                                                <i className="feather-user-plus" />
-                                                Follow
-                                            </span>
                                             <button
                                                 type="button"
                                                 className="btn at-follw share-button"

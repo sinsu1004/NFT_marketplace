@@ -21,7 +21,7 @@ const Author = () => (
             <AuthorIntroArea data={authorData} />
             <AuthorProfileArea data={{ products: productData }} />
         </main>
-        <Footer />
+       
     </Wrapper>
 );
 

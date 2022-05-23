@@ -34,7 +34,7 @@ const ProductDetails = ({ product, recentViewProducts, relatedProducts }) => (
                 }}
             />
         </main>
-        <Footer />
+        {/* <Footer /> */}
     </Wrapper>
 );
 

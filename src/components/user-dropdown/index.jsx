@@ -88,9 +88,6 @@ const UserDropdown = () => {
                         <Anchor path="/edit-profile">Edit Profile</Anchor>
                     </li>
                     <li>
-                        <Anchor path="/connect">Manage funds</Anchor>
-                    </li>
-                    <li>
                         <button type="button" onClick={logout}>
                             Sign Out
                         </button>

@@ -25,14 +25,14 @@ const PlaceBidModal = ({ show, handleModal }) => (
         <Modal.Body>
             <p>You are about to purchase This Product Form Nuron</p>
             <div className="placebid-form-box">
-                <h5 className="title">Your bid</h5>
+                {/* <h5 className="title">Your bid</h5> */}
                 <div className="bid-content">
-                    <div className="bid-content-top">
+                    {/* <div className="bid-content-top">
                         <div className="bid-content-left">
                             <input id="value" type="text" name="value" />
                             <span>wETH</span>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="bid-content-mid">
                         <div className="bid-content-left">

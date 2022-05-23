@@ -40,7 +40,7 @@ const ProductDetailsArea = ({ space, className, product }) => (
                                 {product.price.currency}
                             </span>
                         </span>
-                        <h6 className="title-name">#22 Portal , Info bellow</h6>
+                        {/* <h6 className="title-name">#22 Portal , Info bellow</h6>
                         <div className="catagory-collection">
                             <ProductCategory owner={product.owner} />
                             <ProductCollection
@@ -49,7 +49,7 @@ const ProductDetailsArea = ({ space, className, product }) => (
                         </div>
                         <Button color="primary-alta" path="#">
                             Unlockable content included
-                        </Button>
+                        </Button> */}
                         <div className="rn-bid-details">
                             <BidTab
                                 bids={product?.bids}

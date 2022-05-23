@@ -12,17 +12,10 @@ const BidTab = ({ className, bids, owner, properties, tags, history }) => (
     <TabContainer defaultActiveKey="nav-home">
         <div className={clsx("tab-wrapper-one", className)}>
             <nav className="tab-button-one">
-                <Nav as="div" className="nav-tabs">
-                    <Nav.Link as="button" eventKey="nav-home">
-                        Bids
-                    </Nav.Link>
-                    <Nav.Link as="button" eventKey="nav-profile">
-                        Details
-                    </Nav.Link>
-                    <Nav.Link as="button" eventKey="nav-contact">
-                        History
-                    </Nav.Link>
-                </Nav>
+                <Nav.Link as="button" eventKey="nav-contact">
+                    History
+                </Nav.Link>
+                
             </nav>
             <TabContent className="rn-bid-content">
                 <TabPane eventKey="nav-home">

@@ -50,12 +50,7 @@ const PlaceBet = ({ highest_bid, auction_date }) => {
                             </div>
                         </div>
                     </div>
-                    {auction_date && (
-                        <div className="bid-list left-bid">
-                            <h6 className="title">Auction has ended</h6>
-                            <Countdown className="mt--15" date={auction_date} />
-                        </div>
-                    )}
+                  
                 </div>
                 <Button
                     color="primary-alta"
