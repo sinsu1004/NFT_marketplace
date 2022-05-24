@@ -17,7 +17,7 @@ const LoginForm = ({ className }) => {
     const onSubmit = (data, e) => {
         e.preventDefault();
         // eslint-disable-next-line no-console
-        console.log(data);
+
         router.push({
             pathname: "/",
         });

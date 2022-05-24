@@ -5,6 +5,7 @@ import Footer from "@layout/footer/footer-01";
 import AuthorIntroArea from "@containers/author-intro";
 import AuthorProfileArea from "@containers/author-profile";
 
+
 // Demo data
 import authorData from "../data/author.json";
 import productData from "../data/products.json";
@@ -13,7 +14,11 @@ export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
 
-const Author = () => (
+
+
+
+const Author = (props) => (
+
     <Wrapper>
         <SEO pageTitle="Author" />
         <Header />
@@ -23,6 +28,7 @@ const Author = () => (
         </main>
        
     </Wrapper>
+    
 );
 
 export default Author;

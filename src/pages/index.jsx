@@ -38,7 +38,6 @@ const Home = () => {
     return (
         
             <Wrapper>
-                
                 <SEO pageTitle="Home Default" />
                 <Header />
                 <main id="main-content">

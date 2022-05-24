@@ -7,10 +7,10 @@ import React, { useContext, useEffect } from 'react';
 const UserDropdown = () => {
     const { logout } = useMoralis();
     const metamask =useContext(Metamask_context);
-    console.log(metamask.account);
+    
     return (
         <div className="icon-box">
-            <Anchor path="/author">
+            <Anchor path="/author" metadata={metamask}>
                 <Image
                     src="/images/icons/boy-avater.png"
                     alt="Images"
@@ -88,7 +88,7 @@ const UserDropdown = () => {
                         <Anchor path="/edit-profile">Edit Profile</Anchor>
                     </li>
                     <li>
-                        <button type="button" onClick={logout}>
+                        <button type="button" onClick={metamask.Signout}>
                             Sign Out
                         </button>
                     </li>

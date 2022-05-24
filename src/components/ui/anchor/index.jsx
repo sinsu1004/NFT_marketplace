@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const Anchor = ({
     path,
+    metadata,
     children,
     className,
     rel,
@@ -13,6 +14,7 @@ const Anchor = ({
 }) => {
     if (!path) return null;
     const internal = /^\/(?!\/)/.test(path);
+
     if (!internal) {
         const isHash = path.startsWith("#");
         if (isHash) {
@@ -44,7 +46,7 @@ const Anchor = ({
     }
 
     return (
-        <Link rel="preload" href={path} passHref>
+        <Link rel="preload" href={{pathname:path,query:{metamask:JSON.stringify(metadata)}}} passHref>
             <a
                 href="passRef"
                 className={className}

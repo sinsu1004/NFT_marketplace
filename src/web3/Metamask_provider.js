@@ -23,6 +23,13 @@ const Metamask_Reducer=(state,action)=>{
             connect:state.connect
         };
     }
+    if(action.type === 'logout'){
+        return{
+            account:null,
+            networkId:null,
+            connect:false
+        };
+    }
 
     return defaultMetamask;
 };
@@ -42,13 +49,17 @@ const Metamask_provider=props=>{
         dispatchMetaAction({type:'NETWORKID',networkId:networkId});
         return networkId;
     };
+    const SignoutHandler=async()=>{
+        dispatchMetaAction({type:'logout'});
+    }
 
     const metamask_data={
         account:metaState.account,
         networkId:metaState.networkId,
         connect:metaState.connect,
         loadAccount:loadAccountHandler,
-        loadNetworkId:loadNetworkIdHandler
+        loadNetworkId:loadNetworkIdHandler,
+        Signout:SignoutHandler
     };
 
     return(

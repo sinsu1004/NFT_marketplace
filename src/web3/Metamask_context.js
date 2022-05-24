@@ -5,8 +5,8 @@ const Metamask_context =React.createContext({
     networkId:null,
     connect:false,
     loadAccount:()=>{},
-    loadNetworkId:()=>{}
-    
+    loadNetworkId:()=>{},
+    Signout:()=>{},
 });
 
 

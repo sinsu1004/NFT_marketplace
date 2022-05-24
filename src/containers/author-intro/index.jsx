@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Image from "next/image";
@@ -6,10 +6,14 @@ import { ImageType } from "@utils/types";
 import ShareDropdown from "@components/share-dropdown";
 import ShareModal from "@components/modals/share-modal";
 import Anchor from "@ui/anchor";
+import Metamask_context from "src/web3/Metamask_context";
+
 
 const AuthorIntroArea = ({ className, space, data }) => {
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
     const shareModalHandler = () => setIsShareModalOpen((prev) => !prev);
+    const metamask =useContext(Metamask_context);
+    console.log(metamask);
     return (
         <>
             <ShareModal
@@ -53,7 +57,7 @@ const AuthorIntroArea = ({ className, space, data }) => {
                                     )}
 
                                     <div className="rn-author-info-content">
-                                        <h4 className="title">{data.name}</h4>
+                                        <h4 className="title">{metamask.account}님</h4>
                                         <div className="author-button-area">
                                             <button
                                                 type="button"

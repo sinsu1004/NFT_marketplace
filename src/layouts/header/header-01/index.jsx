@@ -19,7 +19,7 @@ import Metamask_context from "src/web3/Metamask_context";
 import { useContext } from "react";
 
 const Header = ({ className }) => {
-    console.log('들어옴');
+   
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
@@ -37,7 +37,7 @@ const Header = ({ className }) => {
         
 
     };
-    console.log(metamask.account);
+   
 
     return (
         <>
