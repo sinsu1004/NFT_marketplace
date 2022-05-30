@@ -21,6 +21,17 @@ module.exports = {
       gas: 5000000,
       gasPrice: 25000000000,
       network_id: 4
+    },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(
+          privateKeys.split(','), // array of private keys
+          `https://ropsten.infura.io/v3/77e93dc848694ac9b68718c1ed243ca1` // Url to an Ethereum node
+        )
+      },
+      gas: 5000000,
+      gasPrice: 25000000000,
+      network_id: 3
     }
   },
   contracts_directory: './contracts',

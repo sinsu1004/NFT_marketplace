@@ -10,6 +10,8 @@ import "../assets/scss/style.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 import Metamask_provider from "src/web3/Metamask_provider";
+import CollectionProvider from "src/web3/CollectionProvider";
+import MarketplaceProvider from "src/web3/MarketplaceProvider";
 
 const moralisAppId = "Zgi9h3xvYrvXHJZmYjgzbfxlTPnDq6H3RytmW0qt";
 const moralisServerURL = "https://mrnuat16od8z.usemoralis.com:2053/server";
@@ -28,11 +30,15 @@ const MyApp = ({ Component, pageProps }) => {
     });
     return (
         <Metamask_provider>
-            <MoralisProvider appId={moralisAppId} serverUrl={moralisServerURL}>
-                <ThemeProvider defaultTheme="dark">
-                    <Component {...pageProps} />
-                </ThemeProvider>
-            </MoralisProvider>
+            <CollectionProvider>
+                <MarketplaceProvider>
+                    <MoralisProvider appId={moralisAppId} serverUrl={moralisServerURL}>
+                        <ThemeProvider defaultTheme="dark">
+                            <Component {...pageProps} />
+                        </ThemeProvider>
+                    </MoralisProvider>
+                </MarketplaceProvider>
+            </CollectionProvider>
         </Metamask_provider>
     );
 };

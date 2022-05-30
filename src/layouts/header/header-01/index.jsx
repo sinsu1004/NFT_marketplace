@@ -16,7 +16,12 @@ import menuData from "../../../data/general/menu-01.json";
 
 import Web3 from 'web3';
 import Metamask_context from "src/web3/Metamask_context";
-import { useContext } from "react";
+import CollectionContext from "src/web3/collection-context";
+import MarketplaceContext from "src/web3/marketplace-context";
+import NFTCollection from 'truffle/abis/NFTCollection.json';
+import NFTMarketplace from 'truffle/abis/NFTMarketplace.json';
+import { useContext,useEffect,useState } from "react";
+
 
 const Header = ({ className }) => {
    
@@ -24,11 +29,57 @@ const Header = ({ className }) => {
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
     const metamask =useContext(Metamask_context);
-    
+    const collection_ctx=useContext(CollectionContext);
+    const marketplace_ctx=useContext(MarketplaceContext);
+    const [web3,setweb3] =useState();
+    //NFT 발행 contract 연결 함수
+    const loadBlockchainData =async() =>{
+        //NFT contract 연결
+        const nftDeployedNetwork=NFTCollection.networks[metamask.networkId];
+        const nftContract = collection_ctx.loadContract(web3,NFTCollection,nftDeployedNetwork);
+        //NFT marketplace contract 연결
+        const mktDeployedNetwork=NFTMarketplace.networks[metamask.networkId];
+        const mktContract = marketplace_ctx.loadContract(web3,NFTMarketplace,mktDeployedNetwork);
+        
+        if(nftContract){
+            // 토큰 총량 불러오기
+            const totalSupply= await collection_ctx.loadTotalSupply(nftContract);
+            // 토큰 정보 모두 불러오기
+            collection_ctx.loadCollection(nftContract,totalSupply);
+            // 토큰 오너 변동 감지
+            nftContract.events.Transger()
+            .on('data', (event) => {
+                collection_ctx.updateCollection(nftContract, event.returnValues.tokenId, event.returnValues.to);
+                collection_ctx.setNftIsLoading(false);
+            })
+            .on('error', (error) => {
+                console.log(error);
+            });
+        }
+        if(mktContract){
+            // 마켓에 있는 토큰 총개수 불러오기
+            const offercount=await marketplace_ctx.loadOfferCount(mktContract);
+            // 마켓주문 정보 불러오기
+            marketplace_ctx.loadOffers(mktContract,offercount);
+            // 사용자 판매금액 불러오기
+            metamask.account && marketplace_ctx.loadUserFunds(mktContract,metamask.account);
+
+
+        }
+
+
+
+    }
+    useEffect(() => {
+        setweb3(window.ethereum ? new Web3(window.ethereum) : null);
+    },[] )
+    if(metamask.account!=null&&collection_ctx.contract==null){
+        loadBlockchainData();
+    }
+    console.log("순서 1");
     const connect_meta =async() =>{
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' }); 
-            const web3=window.ethereum ? new Web3(window.ethereum): null;
             await metamask.loadAccount(web3);
             await metamask.loadNetworkId(web3); 
         }catch(error) {
