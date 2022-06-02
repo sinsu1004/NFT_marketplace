@@ -22,6 +22,7 @@ import NFTCollection from 'truffle/abis/NFTCollection.json';
 import NFTMarketplace from 'truffle/abis/NFTMarketplace.json';
 import { useContext,useEffect,useState } from "react";
 
+var check_one=false;
 
 const Header = ({ className }) => {
    
@@ -34,6 +35,7 @@ const Header = ({ className }) => {
     const [web3,setweb3] =useState();
     //NFT 발행 contract 연결 함수
     const loadBlockchainData =async() =>{
+
         //NFT contract 연결
         const nftDeployedNetwork=NFTCollection.networks[metamask.networkId];
         const nftContract = collection_ctx.loadContract(web3,NFTCollection,nftDeployedNetwork);
@@ -47,7 +49,7 @@ const Header = ({ className }) => {
             // 토큰 정보 모두 불러오기
             collection_ctx.loadCollection(nftContract,totalSupply);
             // 토큰 오너 변동 감지
-            nftContract.events.Transger()
+            nftContract.events.Transfer()
             .on('data', (event) => {
                 collection_ctx.updateCollection(nftContract, event.returnValues.tokenId, event.returnValues.to);
                 collection_ctx.setNftIsLoading(false);
@@ -70,18 +72,22 @@ const Header = ({ className }) => {
 
 
     }
+    if(metamask.networkId != null && metamask.account!=null && check_one==false){
+        loadBlockchainData();
+        check_one=true;
+    }
     useEffect(() => {
         setweb3(window.ethereum ? new Web3(window.ethereum) : null);
     },[] )
-    if(metamask.account!=null&&collection_ctx.contract==null){
-        loadBlockchainData();
-    }
-    console.log("순서 1");
+  
     const connect_meta =async() =>{
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' }); 
+            // const web3=window.ethereum? new Web3(window.ethereum) :null;
             await metamask.loadAccount(web3);
             await metamask.loadNetworkId(web3); 
+            
+           
         }catch(error) {
             console.error(error);
         }
