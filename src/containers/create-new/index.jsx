@@ -12,10 +12,14 @@ import Metamask_context from "src/web3/Metamask_context";
 import CollectionContext from "src/web3/collection-context";
 import MarketplaceContext from "src/web3/marketplace-context";
 
+// const ipfsClient =require('ipfs-http-client');
+import * as ipfsClient from "ipfs-http-client";
+const ipfs = ipfsClient.create({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
 
 const CreateNewArea = ({ className, space }) => {
     const [showProductModal, setShowProductModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState();
+    const [fileImage, setfileImage] = useState(null);
     const [hasImageError, setHasImageError] = useState(false);
     const [previewData, setPreviewData] = useState({});
     const metamask =useContext(Metamask_context);
@@ -30,7 +34,6 @@ const CreateNewArea = ({ className, space }) => {
     } = useForm({
         mode: "onChange",
     });
-
     const notify = () => toast("Your product has submitted");
     const connectnotify =() => toast("메타마스크를 연결해주세요");
     const handleProductModal = () => {
@@ -41,8 +44,57 @@ const CreateNewArea = ({ className, space }) => {
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             setSelectedImage(e.target.files[0]);
+            imageSave(e.target.files[0]);
         }
     };
+
+    const imageSave= (image)=>{
+        const reader = new window.FileReader();
+        reader.readAsArrayBuffer(image);
+        reader.onloadend =() =>{
+            setfileImage(Buffer(reader.result));
+        }
+    }
+    const mintNFT = async(image,data) =>{
+        const fileupload= await ipfs.add(image);
+        if(!fileupload){
+            console.error('파일 업로드에 실패하였습니다.');
+            return;
+        }
+        console.log(fileupload);
+        const NFTdata ={
+            title: "SINSU Metadata",
+            type: "object",
+            properties: {
+                name:{
+                    type:"string",
+                    description: data.name
+                },
+                description:{
+                    type:"string",
+                    description: data.discription
+                },
+                image:{
+                    type:"string",
+                    description: fileupload.path
+                }
+            }
+        };
+        console.log(NFTdata);
+        const NFTdataAdded = await ipfs.add(JSON.stringify(NFTdata));
+        if(!NFTdataAdded){
+            console.error('데이터 업로드에 실패하였습니다');
+            return;
+        }
+        console.log(NFTdataAdded);
+        collection_ctx.contract.methods.safeMint(NFTdataAdded.path).send({from:metamask.account})
+        .on('transactionHash', (hash)=>{
+            collection_ctx.setNftIsLoading(true);
+        })
+        .on('error',(e)=>{
+            toast("NFT 발행 실패");
+        })
+    }
 
     const onSubmit = (data, e) => {
         const { target } = e;
@@ -60,6 +112,7 @@ const CreateNewArea = ({ className, space }) => {
             
             }
             else{
+                mintNFT(fileImage,data);
                 notify();
                 reset();
                 setSelectedImage();

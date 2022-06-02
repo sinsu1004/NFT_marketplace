@@ -107,6 +107,7 @@ const CollectionProvider = props => {
         }
 
         const metadata = await response.json();
+        console.log(metadata);
         const owner = await contract.methods.ownerOf(i + 1).call();
 
         collection = [{
