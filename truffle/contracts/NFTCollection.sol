@@ -11,6 +11,28 @@ contract NFTCollection is ERC721, ERC721Enumerable {
 
   mapping(address=>uint[]) public _userToken;
   mapping(address=>uint[]) public _userTokenoffer;
+
+  mapping(address=>_User) public _user;
+
+  struct _User {
+    string username;
+    string userProfile;
+    string userCover;
+    string useremail;
+    string userBio;
+  }
+
+  function userupdate(string memory _name,string memory _email,string memory _bio) public{
+   _user[msg.sender].username = _name ;
+   _user[msg.sender].useremail = _email ;
+   _user[msg.sender].userBio = _bio ;
+  }
+  function userupdatePhoto(string memory profile,string memory cover)public {
+    _user[msg.sender].userProfile=profile;
+    _user[msg.sender].userCover=cover;
+  }
+
+
   
   function _userToken_pop(uint tokenid ,address myaddress) public{
       uint j=0;

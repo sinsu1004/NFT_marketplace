@@ -2,12 +2,16 @@ import Image from "next/image";
 import Anchor from "@ui/anchor";
 import { useMoralis } from "react-moralis";
 import Metamask_context from "src/web3/Metamask_context";
+import CollectionContext from "src/web3/collection-context";
+import MarketplaceContext from "src/web3/marketplace-context";
 import React, { useContext, useEffect } from 'react';
 
 const UserDropdown = () => {
     const { logout } = useMoralis();
     const metamask =useContext(Metamask_context);
-    
+    const collection_ctx=useContext(CollectionContext);
+    const marketplace_ctx=useContext(MarketplaceContext);
+    console.log(collection_ctx.collection);
     return (
         <div className="icon-box">
             <Anchor path="/author" metadata={metamask}>
@@ -30,46 +34,34 @@ const UserDropdown = () => {
                 </div>
                 <div className="rn-product-inner">
                     <ul className="product-list">
-                        <li className="single-product-list">
-                            <div className="thumbnail">
-                                <Anchor path="/product">
-                                    <Image
-                                        src="/images/portfolio/portfolio-07.jpg"
-                                        alt="Nft Product Images"
-                                        layout="fixed"
-                                        width={50}
-                                        height={50}
-                                    />
-                                </Anchor>
-                            </div>
-                            <div className="content">
-                                <h6 className="title">
-                                    <Anchor path="/product">Balance</Anchor>
-                                </h6>
-                                <span className="price">25 ETH</span>
-                            </div>
-                            <div className="button" />
-                        </li>
-                        <li className="single-product-list">
-                            <div className="thumbnail">
-                                <Anchor path="/product">
-                                    <Image
-                                        src="/images/portfolio/portfolio-01.jpg"
-                                        alt="Nft Product Images"
-                                        layout="fixed"
-                                        width={50}
-                                        height={50}
-                                    />
-                                </Anchor>
-                            </div>
-                            <div className="content">
-                                <h6 className="title">
-                                    <Anchor path="/product">Balance</Anchor>
-                                </h6>
-                                <span className="price">25 ETH</span>
-                            </div>
-                            <div className="button" />
-                        </li>
+                        {collection_ctx.collection.map((nft,key)=>{
+
+                            return(
+                                <li className="single-product-list">
+                                <div className="thumbnail">
+                                    <Anchor path="/product">
+                                        <Image
+                                            src={`https://ipfs.infura.io/ipfs/${nft.img}`}
+                                            // src='https://ipfs.infura.io/ipfs/QmWnaePrKkS3FpHhdazZEg7fLzR7NkjDMHkaTYv7XXCHS5'
+                                            alt="Nft Product Images"
+                                            layout="fixed"
+                                            width={50}
+                                            height={50}
+                                            unoptimized={true}
+                                        />
+                                    </Anchor>
+                                </div>
+                                <div className="content">
+                                    <h6 className="title">
+                                        <Anchor path="/product">Balance</Anchor>
+                                    </h6>
+                                    <span className="price"></span>
+                                </div>
+                                <div className="button" />
+                            </li>  
+                            );
+                        })}
+                    
                     </ul>
                 </div>
                 <div className="add-fund-button mt--20 pb--20">

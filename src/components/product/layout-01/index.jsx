@@ -12,18 +12,11 @@ import { ImageType } from "@utils/types";
 import PlaceBidModal from "@components/modals/placebid-modal";
 
 const Product = ({
-    overlay,
     title,
     slug,
-    latestBid,
     price,
-    likeCount,
-    auction_date,
     image,
-    bitCount,
-    authors,
-    placeBid,
-    disableShareDropdown,
+ 
 }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
@@ -32,29 +25,27 @@ const Product = ({
     return (
         <>
             <div
-                className={clsx(
-                    "product-style-one",
-                    !overlay && "no-overlay",
-                    placeBid && "with-placeBid"
-                )}
+                className="product-style-one"
             >
                 <div className="card-thumbnail">
                     {image?.src && (
                         <Anchor path={`/product/${slug}`}>
                             <Image
-                                src={image.src}
+                                // src={image.src}
+                                src="https://ipfs.infura.io/ipfs/QmWnaePrKkS3FpHhdazZEg7fLzR7NkjDMHkaTYv7XXCHS5"
                                 alt={image?.alt || "NFT_portfolio"}
                                 width={533}
                                 height={533}
+                                unoptimized={true}
                             />
                         </Anchor>
                     )}
-                    {/* {auction_date && <CountdownTimer date={auction_date} />} */}
-                    {placeBid && (
+                 
+                    {/* {placeBid && (
                         <Button onClick={handleBidModal} size="small">
                             Place Bid
                         </Button>   
-                    )}
+                    )} */}
                 </div>
                 <div className="product-share-wrapper">
                    
@@ -62,8 +53,8 @@ const Product = ({
                 <Anchor path={`/product/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                {/* <span className="latest-bid">Highest bid {latestBid}</span> */}
-                <ProductBid price={price} likeCount={likeCount} />
+                
+                <ProductBid price={price} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal} />
         </>
@@ -71,27 +62,12 @@ const Product = ({
 };
 
 Product.propTypes = {
-    overlay: PropTypes.bool,
     title: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    latestBid: PropTypes.string.isRequired,
     price: PropTypes.shape({
         amount: PropTypes.number.isRequired,
         currency: PropTypes.string.isRequired,
     }).isRequired,
-    likeCount: PropTypes.number.isRequired,
-    auction_date: PropTypes.string,
     image: ImageType.isRequired,
-    authors: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            slug: PropTypes.string.isRequired,
-            image: ImageType.isRequired,
-        })
-    ),
-    bitCount: PropTypes.number,
-    placeBid: PropTypes.bool,
-    disableShareDropdown: PropTypes.bool,
 };
 
 Product.defaultProps = {

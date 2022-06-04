@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import SectionTitle from "@components/section-title/layout-02";
@@ -6,12 +6,23 @@ import Product from "@components/product/layout-01";
 import Button from "@ui/button";
 import { SectionTitleType, ProductType } from "@utils/types";
 
+import Metamask_context from "src/web3/Metamask_context";
+import CollectionContext from "src/web3/collection-context";
+import MarketplaceContext from "src/web3/marketplace-context";
+
 const ExploreProductArea = ({ className, space, data }) => {
     const [products, setProducts] = useState([]);
     const [hasMore, setHasMore] = useState(false);
 
+    const metamask =useContext(Metamask_context);
+    const collection_ctx=useContext(CollectionContext);
+    const marketplace_ctx=useContext(MarketplaceContext);
+
     useEffect(() => {
         const currentProducts = data.products.slice(0, 10);
+        console.log(data);
+        console.log(collection_ctx);
+        console.log(marketplace_ctx);
         setProducts(currentProducts);
         setHasMore(currentProducts.length < data.products.length);
     }, [data.products]);
@@ -47,17 +58,10 @@ const ExploreProductArea = ({ className, space, data }) => {
                         {products.map((prod) => (
                             <div className="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
                                 <Product
-                                    overlay
-                                    placeBid={!!data.placeBid}
                                     title={prod.title}
                                     slug={prod.slug}
-                                    latestBid={prod.latestBid}
                                     price={prod.price}
-                                    likeCount={prod.likeCount}
-                                    auction_date={prod.auction_date}
                                     image={prod.images?.[0]}
-                                    authors={prod.authors}
-                                    bitCount={prod.bitCount}
                                 />
                             </div>
                         ))}
