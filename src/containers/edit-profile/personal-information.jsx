@@ -89,8 +89,8 @@ const PersonalInformation = () => {
                 id="Discription"
                 placeholder="Hello, I am Alamin, A Front-end Developer..."
                 onChange={onChangInput}
+                defaultValue="Hello, I am Alamin, A Front-end Developer..."
             >
-                Hello, I am Alamin, A Front-end Developer...
             </textarea>
         </div>
         <div className="input-two-wrapper mt--15">

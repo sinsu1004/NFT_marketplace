@@ -17,7 +17,6 @@ const EditProfile = () => (
             <Breadcrumb pageTitle="Edit Profile" currentPage="Edit Profile" />
             <EditProfileArea />
         </main>
-        <Footer />
     </Wrapper>
 );
 
