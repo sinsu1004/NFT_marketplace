@@ -94,7 +94,6 @@ const Header = ({ className }) => {
         
 
     };
-    console.log(collection_ctx);
 
     return (
         <>

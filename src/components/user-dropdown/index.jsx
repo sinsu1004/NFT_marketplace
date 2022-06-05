@@ -1,17 +1,14 @@
 import Image from "next/image";
 import Anchor from "@ui/anchor";
-import { useMoralis } from "react-moralis";
 import Metamask_context from "src/web3/Metamask_context";
 import CollectionContext from "src/web3/collection-context";
 import MarketplaceContext from "src/web3/marketplace-context";
 import React, { useContext, useEffect } from 'react';
 
 const UserDropdown = () => {
-    const { logout } = useMoralis();
     const metamask =useContext(Metamask_context);
     const collection_ctx=useContext(CollectionContext);
     const marketplace_ctx=useContext(MarketplaceContext);
-    console.log(collection_ctx.collection);
     return (
         <div className="icon-box">
             <Anchor path="/author" metadata={metamask}>

@@ -32,11 +32,11 @@ const MyApp = ({ Component, pageProps }) => {
         <Metamask_provider>
             <CollectionProvider>
                 <MarketplaceProvider>
-                    <MoralisProvider appId={moralisAppId} serverUrl={moralisServerURL}>
-                        <ThemeProvider defaultTheme="dark">
-                            <Component {...pageProps} />
-                        </ThemeProvider>
-                    </MoralisProvider>
+                   
+                    <ThemeProvider defaultTheme="dark">
+                        <Component {...pageProps} />
+                    </ThemeProvider>
+                    
                 </MarketplaceProvider>
             </CollectionProvider>
         </Metamask_provider>
