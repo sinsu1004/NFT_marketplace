@@ -1,8 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Image from "next/image";
+import Button from "@ui/button";
+import Metamask_context from "src/web3/Metamask_context";
+import CollectionContext from "src/web3/collection-context";
+import { toast } from "react-toastify";
 
+import * as ipfsClient from "ipfs-http-client";
+const ipfs = ipfsClient.create({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
 const EditProfileImage = () => {
+    const metamask =useContext(Metamask_context);
+    const collection_ctx=useContext(CollectionContext);
+
     const [selectedImage, setSelectedImage] = useState({
         profile: "",
         cover: "",
@@ -13,8 +22,35 @@ const EditProfileImage = () => {
                 ...prev,
                 [e.target.name]: e.target.files[0],
             }));
+
         }
     };
+    const onReset = () =>{
+   
+    };
+
+    const onSave= async() =>{
+        const profileupload= await ipfs.add(selectedImage.profile);
+        if(!profileupload){
+            console.error('파일 업로드에 실패하였습니다.');
+            return;
+        }
+        const coverupload= await ipfs.add(selectedImage.cover);
+        if(!coverupload){
+            console.error('파일 업로드에 실패하였습니다.');
+            return;
+        }
+        collection_ctx.contract.methods.userupdatePhoto(profileupload.path,coverupload.path).send({from:metamask.account})
+        .on('transactionHash',(hash)=>{
+            metamask.loaduserinfo(collection_ctx.contract,metamask.account);
+        })
+        .on('error',(error)=>{
+            toast("실패");
+        });
+
+
+    };
+  
 
     return (
         <div className="nuron-information">
@@ -31,14 +67,38 @@ const EditProfileImage = () => {
                                     alt=""
                                     data-black-overlay="6"
                                 />
-                            ) : (
+                            ) :
+                            typeof metamask.userinfo.userProfile =="undefined"
+                                ?
+                                (
+                                    <Image
+                                        id="rbtinput1"
+                                        src="/images/profile/profile-01.jpg"
+                                        alt="Profile-NFT"
+                                        layout="fill"
+                                    />
+                                )
+                                :
+                                metamask.userinfo.userProfile != ""
+                                ?
+                                <Image
+                                id="rbtinput1"
+                                src={`https://ipfs.infura.io/ipfs/${metamask.userinfo.userProfile}`}
+                                alt="Profile-NFT"
+                                layout="fill"
+                                unoptimized={true}
+                                />
+                                :
+                            (
                                 <Image
                                     id="rbtinput1"
                                     src="/images/profile/profile-01.jpg"
                                     alt="Profile-NFT"
                                     layout="fill"
                                 />
-                            )}
+                            )
+                            
+                            }
                         </div>
                     </div>
                     <div className="button-area">
@@ -70,14 +130,38 @@ const EditProfileImage = () => {
                                     alt=""
                                     data-black-overlay="6"
                                 />
-                            ) : (
+                            ) : 
+                            typeof metamask.userinfo.userCover =="undefined"
+                            ?
+                            (
+                                <Image
+                                    id="rbtinput1"
+                                    src="/images/profile/profile-01.jpg"
+                                    alt="Profile-NFT"
+                                    layout="fill"
+                                />
+                            )
+                            :
+                            metamask.userinfo.userCover != ""
+                            ?
+                            <Image
+                            id="rbtinput1"
+                            src={`https://ipfs.infura.io/ipfs/${metamask.userinfo.userCover}`}
+                            alt="Profile-NFT"
+                            layout="fill"
+                            unoptimized={true}
+                            />
+                            :
+                            
+                            (
                                 <Image
                                     id="rbtinput2"
                                     src="/images/profile/cover-01.jpg"
                                     alt="Profile-NFT"
                                     layout="fill"
                                 />
-                            )}
+                            )
+                            }
                         </div>
                     </div>
                     <div className="button-area">
@@ -97,6 +181,12 @@ const EditProfileImage = () => {
                     </div>
                 </div>
             </div>
+            <div className="button-area save-btn-edit">
+            <Button className="mr--15" color="primary-alta" size="medium" onClick={onReset}>
+                Cancel
+            </Button>
+            <Button size="medium" onClick={onSave} >Save</Button>
+        </div>
         </div>
     );
 };

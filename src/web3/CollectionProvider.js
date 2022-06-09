@@ -6,7 +6,9 @@ const defaultCollectionState = {
   contract: null,
   totalSupply: null,
   collection: [],
-  nftIsLoading: true
+  nftIsLoading: true,
+ 
+  
 };
 
 const collectionReducer = (state, action) => {
@@ -15,7 +17,8 @@ const collectionReducer = (state, action) => {
       contract: action.contract,
       totalSupply: state.totalSupply,
       collection: state.collection,
-      nftIsLoading: state.nftIsLoading
+      nftIsLoading: state.nftIsLoading,
+ 
     };
   } 
   
@@ -24,7 +27,7 @@ const collectionReducer = (state, action) => {
       contract: state.contract,
       totalSupply: action.totalSupply,
       collection: state.collection,
-      nftIsLoading: state.nftIsLoading
+      nftIsLoading: state.nftIsLoading,
     };
   }
 
@@ -33,7 +36,8 @@ const collectionReducer = (state, action) => {
       contract: state.contract,
       totalSupply: state.totalSupply,
       collection: action.collection,
-      nftIsLoading: state.nftIsLoading
+      nftIsLoading: state.nftIsLoading,
+ 
     };
   }
 
@@ -51,7 +55,8 @@ const collectionReducer = (state, action) => {
       contract: state.contract,
       totalSupply: state.totalSupply,
       collection: collection,
-      nftIsLoading: state.nftIsLoading
+      nftIsLoading: state.nftIsLoading,
+     
     };
   }
 
@@ -64,7 +69,8 @@ const collectionReducer = (state, action) => {
       contract: state.contract,
       totalSupply: state.totalSupply,
       collection: collection,
-      nftIsLoading: state.nftIsLoading
+      nftIsLoading: state.nftIsLoading,
+    
     };
   }
 
@@ -73,9 +79,12 @@ const collectionReducer = (state, action) => {
       contract: state.contract,
       totalSupply: state.totalSupply,
       collection: state.collection,
-      nftIsLoading: action.loading
+      nftIsLoading: action.loading,
+    
     };
   }
+
+ 
   
   return defaultCollectionState;
 };
@@ -153,17 +162,21 @@ const CollectionProvider = props => {
     dispatchCollectionAction({type: 'LOADING', loading: loading});
   };
 
+ 
+
   const collectionContext = {
     contract: CollectionState.contract,
     totalSupply: CollectionState.totalSupply,
     collection: CollectionState.collection,
     nftIsLoading:CollectionState.nftIsLoading,
+    
     loadContract: loadContractHandler,
     loadTotalSupply: loadTotalSupplyHandler,
     loadCollection: loadCollectionHandler,
     updateCollection: updateCollectionHandler,
     updateOwner: updateOwnerHandler,
-    setNftIsLoading: setNftIsLoadingHandler
+    setNftIsLoading: setNftIsLoadingHandler,
+   
   };
   
   return (

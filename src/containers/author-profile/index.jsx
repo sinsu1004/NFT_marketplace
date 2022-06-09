@@ -8,7 +8,17 @@ import Product from "@components/product/layout-01";
 import { ProductType } from "@utils/types";
 import { shuffleArray } from "@utils/methods";
 
+import Metamask_context from "src/web3/Metamask_context";
+import CollectionContext from "src/web3/collection-context";
+import MarketplaceContext from "src/web3/marketplace-context";
+
 const AuthorProfileArea = ({ className, data }) => {
+
+
+    const metamask =useContext(Metamask_context);
+    const collection_ctx=useContext(CollectionContext);
+    const marketplace_ctx=useContext(MarketplaceContext);
+
     const onSaleProducts = shuffleArray(data.products).slice(0, 10);
     const ownedProducts = shuffleArray(data.products).slice(0, 10);
     const createdProducts = shuffleArray(data.products).slice(0, 10);
@@ -31,13 +41,13 @@ const AuthorProfileArea = ({ className, data }) => {
                                             as="button"
                                             eventKey="nav-home"
                                         >
-                                            On Sale
+                                            판매중
                                         </Nav.Link>
                                         <Nav.Link
                                             as="button"
                                             eventKey="nav-profile"
                                         >
-                                            Owned
+                                            보유중
                                         </Nav.Link>
                                         <Nav.Link
                                             as="button"
@@ -49,7 +59,7 @@ const AuthorProfileArea = ({ className, data }) => {
                                             as="button"
                                             eventKey="nav-liked"
                                         >
-                                            Liked
+                                            Buyed
                                         </Nav.Link>
                                     </Nav>
                                 </nav>

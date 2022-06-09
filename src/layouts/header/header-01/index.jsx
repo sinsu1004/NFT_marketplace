@@ -48,6 +48,9 @@ const Header = ({ className }) => {
             const totalSupply= await collection_ctx.loadTotalSupply(nftContract);
             // 토큰 정보 모두 불러오기
             collection_ctx.loadCollection(nftContract,totalSupply);
+
+            // 유저 정보 불러오기
+            metamask.loaduserinfo(nftContract,metamask.account);
             // 토큰 오너 변동 감지
             nftContract.events.Transfer()
             .on('data', (event) => {

@@ -9,6 +9,10 @@ const UserDropdown = () => {
     const metamask =useContext(Metamask_context);
     const collection_ctx=useContext(CollectionContext);
     const marketplace_ctx=useContext(MarketplaceContext);
+
+    const logout =() =>{
+        metamask.Signout();
+    }
     return (
         <div className="icon-box">
             <Anchor path="/author" metadata={metamask}>
@@ -23,7 +27,7 @@ const UserDropdown = () => {
             <div className="rn-dropdown">
                 <div className="rn-inner-top">
                     <h4 className="title">
-                        {metamask.account}님 환영합니다.
+                        {metamask.userinfo.username !="" ? metamask.userinfo.username : metamask.account }님 환영합니다.
                     </h4>
                     <span>
                         <Anchor path="/product">Set Display Name</Anchor>
@@ -77,7 +81,7 @@ const UserDropdown = () => {
                         <Anchor path="/edit-profile">Edit Profile</Anchor>
                     </li>
                     <li>
-                        <button type="button" onClick={metamask.Signout}>
+                        <button type="button" onClick={logout}>
                             Sign Out
                         </button>
                     </li>

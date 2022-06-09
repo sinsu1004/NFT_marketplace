@@ -32,7 +32,7 @@ const ExploreProductArea = ({ className, space, data }) => {
         setProducts(currentProducts);
         setHasMore(currentProducts.length < data.products.length);
     };
-
+    console.log(data)
     return (
         <div
             className={clsx(

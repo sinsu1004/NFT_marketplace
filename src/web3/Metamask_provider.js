@@ -6,6 +6,7 @@ const defaultMetamask ={
     account:null,
     networkId:null,
     connect:false,
+    userinfo:{},
 };
 
 const Metamask_Reducer=(state,action)=>{
@@ -13,23 +14,35 @@ const Metamask_Reducer=(state,action)=>{
         return{
             account:action.account,
             networkId:state.networkId,
-            connect:true
+            connect:true,
+            userinfo:state.userinfo,
         };
     }
     if(action.type === 'NETWORKID'){
         return{
             account: state.account,
             networkId: action.networkId,
-            connect:state.connect
+            connect:state.connect,
+            userinfo:state.userinfo,
         };
     }
     if(action.type === 'logout'){
         return{
             account:null,
             networkId:null,
-            connect:false
+            connect:false,
+            userinfo:{},
         };
     }
+    if(action.type === 'USERINFO'){
+        return{
+            account: state.account,
+            networkId: state.networkId,
+            connect:state.connect,
+            userinfo:action.userinfo,
+      
+        }
+      }
 
     return defaultMetamask;
 };
@@ -52,14 +65,28 @@ const Metamask_provider=props=>{
     const SignoutHandler=async()=>{
         dispatchMetaAction({type:'logout'});
     }
+    const loadprofileimgHandler = async(contract)=>{
+
+    };
+    const loaduserinfoHandler = async(contract,account)=>{
+        const userinf =await contract.methods._user(account).call();
+        dispatchMetaAction({type:'USERINFO',userinfo: userinf});
+        
+      };
+       
+   
 
     const metamask_data={
         account:metaState.account,
         networkId:metaState.networkId,
         connect:metaState.connect,
+        userinfo:metaState.userinfo,
         loadAccount:loadAccountHandler,
         loadNetworkId:loadNetworkIdHandler,
-        Signout:SignoutHandler
+        Signout:SignoutHandler,
+        loaduserinfo:loaduserinfoHandler,
+        loadprofileimg:loadprofileimgHandler,
+        
     };
 
     return(

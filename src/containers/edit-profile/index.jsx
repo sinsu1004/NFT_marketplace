@@ -1,5 +1,6 @@
 import Anchor from "@ui/anchor";
 import Sticky from "@ui/sticky";
+
 import TabContent from "react-bootstrap/TabContent";
 import TabContainer from "react-bootstrap/TabContainer";
 import TabPane from "react-bootstrap/TabPane";
@@ -71,6 +72,7 @@ const EditProfile = () => (
                 </div>
             </TabContainer>
         </div>
+       
     </div>
 );
 

@@ -1,10 +1,11 @@
 import Button from "@ui/button";
 import NiceSelect from "@ui/nice-select";
 import { useState,useContext } from "react";
-
+import { toast } from "react-toastify";
 import Metamask_context from "src/web3/Metamask_context";
 import CollectionContext from "src/web3/collection-context";
 import MarketplaceContext from "src/web3/marketplace-context";
+
 
 
 
@@ -26,8 +27,7 @@ const PersonalInformation = () => {
         const {name, value} =e.target;
         setinformation({...information,[name]:value});
     };
-    console.log(information);
-    const {username, useremail,userbio} =information;
+    
     const onReset = () =>{
         setinformation({
             username:null,
@@ -36,16 +36,22 @@ const PersonalInformation = () => {
         });
     };
     const onSave= async() =>{
-        collection_ctx.contract.methods.userupdate(information.username,information.useremail,information.userbio)
+        collection_ctx.contract.methods.userupdate(information.username,information.useremail,information.userbio).send({from:metamask.account})
         .on('transactionHash',(hash)=>{
-            
+            metamask.loaduserinfo(collection_ctx.contract,metamask.account);
         })
         .on('error',(error)=>{
-            Toast(error);
+            toast("실패");
         });
 
     };
-
+    if(information.userbio==null && information.useremail==null && information.username==null){
+        if(metamask.userinfo.username !=null){
+            setinformation({username:metamask.userinfo.username,useremail:metamask.userinfo.useremail,userbio:metamask.userinfo.userBio})
+        };
+    
+    }
+  
 
     return(
   
@@ -60,8 +66,7 @@ const PersonalInformation = () => {
                         name="username"
                         id="contact-name"
                         type="text"
-                        placeholder="dd"
-                        value={username}
+                        defaultValue={information.username}
                         onChange={onChangInput}
                     />
                 </div>
@@ -75,7 +80,7 @@ const PersonalInformation = () => {
                     name="useremail"
                     id="Email"
                     type="email"
-                    placeholder="example@gmail.com"
+                    defaultValue={information.useremail}
                     onChange={onChangInput}
                 />
             </div>
@@ -87,9 +92,8 @@ const PersonalInformation = () => {
             <textarea
                 name="userbio"
                 id="Discription"
-                placeholder="Hello, I am Alamin, A Front-end Developer..."
                 onChange={onChangInput}
-                defaultValue="Hello, I am Alamin, A Front-end Developer..."
+                defaultValue={information.userbio}
             >
             </textarea>
         </div>

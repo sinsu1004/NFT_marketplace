@@ -11,7 +11,7 @@ const CollectionContext = React.createContext({
   updateTotalSupply: () => {},
   updateCollection: () => {},
   updateOwner: () => {},
-  setNftIsLoading: () => {}
+  setNftIsLoading: () => {},
 });
 
 export default CollectionContext;
